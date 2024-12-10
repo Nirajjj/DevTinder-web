@@ -1,9 +1,19 @@
-import Navbar from "./Navbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./login";
+import Profile from "./profile";
+import Body from "./body";
 
 function App() {
   return (
     <>
-      <Navbar />
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Body />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
