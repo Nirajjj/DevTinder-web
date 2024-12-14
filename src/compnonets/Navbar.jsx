@@ -1,9 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeUser } from "../utils/userSlice";
+import { BASE_URL, DEFAULT_AVATAR } from "../utils/constants";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const logoutUser = async () => {
+    try {
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      dispatch(removeUser());
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="navbar bg-base-300 h-20">
       <div className="flex-1">
@@ -22,10 +34,7 @@ const Navbar = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src={
-                    user.photoUrl ||
-                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  }
+                  src={user.photoUrl || DEFAULT_AVATAR}
                 />
               </div>
             </div>
@@ -43,7 +52,9 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <Link onClick={logoutUser} to={"/login"}>
+                  Logout
+                </Link>
               </li>
             </ul>
           </div>

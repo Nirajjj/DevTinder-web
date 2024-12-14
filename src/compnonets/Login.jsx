@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("niraj@gmail.com");
   const [password, setPassword] = useState("niraj@123");
+  const [error, setError] = useState("");
+
   console.log(emailId, password);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +31,8 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (error) {
+      setError(error.response.data);
+
       console.error(error);
     }
   };
@@ -104,6 +108,7 @@ const Login = () => {
                 </a>
               </label>
             </div>
+            <p className=" text-red-500">{error}</p>
             <div className="form-control mt-6">
               <button className="btn btn-primary" onClick={loginData}>
                 Login
