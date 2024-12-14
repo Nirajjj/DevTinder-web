@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./Login";
-import Profile from "./profile";
-import Body from "./body";
+import Login from "./compnonets/Login";
+import Profile from "./compnonets/profile";
+import Body from "./compnonets/Body";
+import Feed from "./compnonets/Feed";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Body />}>
+            <Route path="/" element={<Feed />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
