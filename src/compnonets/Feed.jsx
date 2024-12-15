@@ -9,7 +9,6 @@ import Card from "./Card";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
-  console.log(feed);
 
   const postFeed = async () => {
     if (feed) return;
@@ -17,7 +16,6 @@ const Feed = () => {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
       });
-      // console.log(res);
 
       dispatch(addFeed(res.data));
     } catch (error) {
@@ -37,7 +35,7 @@ const Feed = () => {
 
   return feed ? (
     <div className=" py-7 flex justify-center items-center">
-      <Card feedUsers={feed} />
+      <Card user={feed.feedCards[0]} />
     </div>
   ) : (
     <div>no feed</div>

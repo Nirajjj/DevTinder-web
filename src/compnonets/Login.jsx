@@ -10,13 +10,13 @@ const Login = () => {
   const [password, setPassword] = useState("niraj@123");
   const [error, setError] = useState("");
 
-  console.log(emailId, password);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginData = async (event) => {
     event.preventDefault();
-    console.log("loginData executed");
+   
 
     try {
       const res = await axios.post(
@@ -27,7 +27,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(res);
+     
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (error) {
