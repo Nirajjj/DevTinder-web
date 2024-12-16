@@ -9,28 +9,31 @@ const Profile = () => {
   const user = useSelector((store) => store.user);
 
   // const {firstName, lastName, age, about, photoUrl, gender} = user.data
-  console.log(user);
 
   // if (!user) return;
-  const [firstName, setfirstName] = useState(user?.data?.firstName || "");
-  const [lastName, setlastName] = useState(user?.data?.lastName || "");
-  const [age, setAge] = useState(user?.data?.age || "");
-  const [about, setAbout] = useState(user?.data?.about || "");
-  const [photoUrl, setPhotoUrl] = useState(user?.data?.photoUrl || "");
-  const [gender, setGender] = useState(user?.data?.gender || "");
+  const [firstName, setfirstName] = useState(user?.firstName || "");
+  const [lastName, setlastName] = useState(user?.lastName || "");
+  const [age, setAge] = useState(user?.age || "");
+  const [about, setAbout] = useState(user?.about || "");
+  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
+  const [gender, setGender] = useState(user?.gender || "");
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const [toast, setToast] = useState(false);
   useEffect(() => {
-    if (user?.data) {
-      setfirstName(user?.data?.firstName);
-      setlastName(user?.data?.lastName);
-      setAge(user?.data?.age);
-      setAbout(user?.data?.about);
-      setPhotoUrl(user?.data?.photoUrl);
-      setGender(user?.data?.gender);
+    if (user) {
+      setfirstName(user?.firstName);
+      setlastName(user?.lastName);
+      setAge(user?.age);
+      setAbout(user?.about);
+      setPhotoUrl(user?.photoUrl);
+      setGender(user?.gender);
     }
   }, [user]);
   if (!user) return <div>Loading...</div>;
+
+  console.log(toast);
+
   const editProfile = async (e) => {
     setError("");
     e.preventDefault();
@@ -40,14 +43,18 @@ const Profile = () => {
         { firstName, lastName, age, gender, about, photoUrl },
         { withCredentials: true }
       );
-      dispatch(addUser(updatedUser));
+      console.log(updatedUser);
+
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 2000);
+      dispatch(addUser(updatedUser.data.data));
     } catch (error) {
       console.error(
-        error.response?.data?.message || error.message || "An error occurred"
+        error.response?.data || error.message || "An error occurred"
       );
-      setError(
-        error.response?.data?.message || error.message || "An error occurred"
-      );
+      setError(error.response?.data || error.message || "An error occurred");
     }
   };
   return (
@@ -159,8 +166,17 @@ const Profile = () => {
                     </label>
                   </div>
                 </div>
-
+                {toast && (
+                  <div className="toast toast-top toast-center">
+                    <div className="alert alert-success flex justify-center items-center">
+                      <span className=" font-medium">
+                        profile saved successfully
+                      </span>
+                    </div>
+                  </div>
+                )}
                 <div className="form-control mt-6">
+                  <p className=" text-red-500">{error}</p>
                   <button
                     className="btn btn-primary"
                     onClick={(e) => {

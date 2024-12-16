@@ -10,13 +10,11 @@ const Login = () => {
   const [password, setPassword] = useState("niraj@123");
   const [error, setError] = useState("");
 
- 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginData = async (event) => {
     event.preventDefault();
-   
 
     try {
       const res = await axios.post(
@@ -27,8 +25,8 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-     
-      dispatch(addUser(res.data));
+
+      dispatch(addUser(res.data.data));
       return navigate("/");
     } catch (error) {
       setError(error.response.data);
