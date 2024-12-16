@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./compnonets/Login";
-import Profile from "./compnonets/profile";
+import Profile from "./compnonets/Profile";
 import Body from "./compnonets/Body";
 import Feed from "./compnonets/Feed";
 

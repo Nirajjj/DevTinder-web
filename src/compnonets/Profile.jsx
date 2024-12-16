@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
 
   // const {firstName, lastName, age, about, photoUrl, gender} = user.data
+  console.log(user);
 
   // if (!user) return;
   const [firstName, setfirstName] = useState(user?.data?.firstName || "");
@@ -18,27 +20,40 @@ const Profile = () => {
   const [gender, setGender] = useState(user?.data?.gender || "");
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  useEffect(() => {
+    if (user?.data) {
+      setfirstName(user?.data?.firstName);
+      setlastName(user?.data?.lastName);
+      setAge(user?.data?.age);
+      setAbout(user?.data?.about);
+      setPhotoUrl(user?.data?.photoUrl);
+      setGender(user?.data?.gender);
+    }
+  }, [user]);
   if (!user) return <div>Loading...</div>;
-
   const editProfile = async (e) => {
     setError("");
     e.preventDefault();
     try {
       const updatedUser = await axios.patch(
         BASE_URL + "/profile/edit",
-        { firstName, lastName, age, about, photoUrl },
+        { firstName, lastName, age, gender, about, photoUrl },
         { withCredentials: true }
       );
-      dispatch(updatedUser);
+      dispatch(addUser(updatedUser));
     } catch (error) {
-      console.error(error.message);
-      setError(error);
+      console.error(
+        error.response?.data?.message || error.message || "An error occurred"
+      );
+      setError(
+        error.response?.data?.message || error.message || "An error occurred"
+      );
     }
   };
   return (
     user && (
       <div className="flex flex-grow-0 items-center justify-center gap-7 min-h-screen">
-        <Card user={user?.data} />
+        <Card user={{ firstName, lastName, age, about, photoUrl, gender }} />
         <div className="bg-base-200  flex items-center justify-center w-96">
           <div className="card lg:card-side bg-base-100 shadow-xl max-w-4xl w-full">
             <div className="card-body lg:w-1/2">
@@ -118,7 +133,7 @@ const Profile = () => {
                         value={gender}
                         onChange={(e) => setGender(e.target.value)}
                       >
-                        <option defaultValue={"choose gender"}>
+                        <option defaultValue={"choose gender"} disabled>
                           choose gender
                         </option>
                         <option value={"male"}>male</option>
@@ -149,7 +164,7 @@ const Profile = () => {
                   <button
                     className="btn btn-primary"
                     onClick={(e) => {
-                      e.preventDefault();
+                      // e.preventDefault();
                       editProfile(e);
                     }}
                   >
