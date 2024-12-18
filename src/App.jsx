@@ -4,6 +4,7 @@ import Profile from "./compnonets/Profile";
 import Body from "./compnonets/Body";
 import Feed from "./compnonets/Feed";
 import Connections from "./compnonets/Connections";
+import Request from "./compnonets/Request";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/connections" element={<Connections />} />
+            <Route path="/requests" element={<Request />} />
           </Route>
         </Routes>
       </BrowserRouter>

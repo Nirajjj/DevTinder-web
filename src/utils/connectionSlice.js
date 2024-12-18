@@ -8,7 +8,6 @@ const connectionSlice = createSlice({
   },
 });
 
+export const { addConnection } = connectionSlice.actions;
 
-const [addConnection] = connectionSlice.actions
-
-export default connectionSlice.reducer
+export default connectionSlice.reducer;
