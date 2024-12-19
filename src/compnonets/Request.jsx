@@ -7,12 +7,22 @@ import { addRequest } from "../utils/requestSlice";
 const Request = () => {
   const requestsArray = useSelector((store) => store.request);
   const dispatch = useDispatch();
+  const reviewRequest = async (status, id) => {
+    try {
+      
+      const res = await axios.post(BASE_URL + "/request/review/" + status + "/" + id, {}, {withCredentials: true})
+      fetchRequest()
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const fetchRequest = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
         withCredentials: true,
       });
       dispatch(addRequest(res.data.data));
+      
     } catch (error) {
       console.error(error);
     }
@@ -21,7 +31,7 @@ const Request = () => {
     fetchRequest();
   }, []);
   if (!requestsArray || requestsArray.length === 0) {
-    return <div>No request</div>;
+    return <div className="font-bold text-center mt-7 text-lg h-screen">No request</div>;
   }
   return (
     <div className="h-screen">
@@ -32,19 +42,23 @@ const Request = () => {
         return (
           <div
             key={_id}
-            className="card card-side bg-base-300 shadow-xl w-2/6 m-auto mb-7"
+            className="card card-side bg-base-300 shadow-xl w-2/6 m-auto mb-7 fles justify-center items-center px-3 py-5 border  border-purple-800"
           >
             <figure>
               <img
                 src={photoUrl || DEFAULT_AVATAR}
                 alt="Movie"
-                className=" rounded-full w-20 ml-7"
+                className=" rounded-full w-20"
               />
             </figure>
             <div className="card-body">
               <h2 className="card-title">{firstName + " " + lastName}</h2>
               <p>{about}</p>
               {age && gender && <p>{age + " " + gender}</p>}
+            </div>
+            <div className="card-actions justify-center">
+              <button className="btn btn-info" onClick={()=>{reviewRequest("rejected", request._id)}}>Reject</button>
+              <button className="btn btn-success" onClick={()=>{reviewRequest("accepted", request._id)}}>Accept</button>
             </div>
           </div>
         );
