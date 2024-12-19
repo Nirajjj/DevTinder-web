@@ -17,7 +17,7 @@ const Feed = () => {
         withCredentials: true,
       });
 
-      dispatch(addFeed(res.data));
+      dispatch(addFeed(res.data.feedCards));
     } catch (error) {
       if (error?.response?.status === 401) {
         Navigate("/login");
@@ -25,20 +25,22 @@ const Feed = () => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   await
-    postFeed();
-    // };
-    // fetchData();
-  }, []);
-
-  return feed ? (
-    <div className=" py-7 flex justify-center items-center">
-      <Card user={feed.feedCards[0]} />
+  // useEffect(() => {
+  //   // const fetchData = async () => {
+  //   //   await
+  //   // };
+  //   // fetchData();
+  // }, []);
+  postFeed();
+  if (!feed || feed?.length <= 0) {
+    return (
+      <h2 className="font-semibold text-lg text-center h-screen">No feed</h2>
+    );
+  }
+  return (
+    <div className=" py-7 flex justify-center items-center h-screen">
+      <Card user={feed[0]} />
     </div>
-  ) : (
-    <div>no feed</div>
   );
   // :
   // (
