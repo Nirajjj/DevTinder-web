@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [firstName, setfirstName] = useState("spider");
-  const [lastName, setlastName] = useState("man");
-  const [emailId, setEmailId] = useState("spider@gmail.com");
-  const [password, setPassword] = useState("spider@123");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const dispatch = useDispatch();
