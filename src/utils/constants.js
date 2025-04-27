@@ -1,6 +1,6 @@
 // const BASE_URL = "http://localhost:7777";
 // const BASE_URL = "https://devtinder-o67m.onrender.com";
-const BASE_URL = "https://devtinder-458109.el.r.appspot.com/";
+const BASE_URL = "https://devtinder-458109.el.r.appspot.com";
 
 // const BASE_URL =
 //   import.meta.env.VITE_NODE_ENV === "production"
