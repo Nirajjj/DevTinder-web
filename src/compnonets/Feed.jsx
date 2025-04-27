@@ -21,7 +21,7 @@ const Feed = () => {
       // if (error?.response?.status === 401) {
       // }
       Navigate("/login");
-      // console.error(error);
+      console.error(error);
     }
   };
   // useEffect(() => {
