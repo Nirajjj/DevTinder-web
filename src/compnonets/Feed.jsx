@@ -18,10 +18,10 @@ const Feed = () => {
 
       dispatch(addFeed(res.data.feedCards));
     } catch (error) {
-      if (error?.response?.status === 401) {
-        Navigate("/login");
-      }
-      console.error(error);
+      // if (error?.response?.status === 401) {
+      // }
+      Navigate("/login");
+      // console.error(error);
     }
   };
   // useEffect(() => {
