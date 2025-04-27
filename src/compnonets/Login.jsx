@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
@@ -115,7 +115,7 @@ const Login = () => {
           </form>
           <div className="divider">OR</div>
           <div className="text-center">
-            <p>Don't have an account?</p>
+            <p>Don&apos;t have an account?</p>
             <Link className="link link-primary" to={"/signup"}>
               Sign up now
             </Link>
