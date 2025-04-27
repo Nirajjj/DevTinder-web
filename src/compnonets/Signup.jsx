@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
+import { addUser } from "../utils/userSlice";
 
 const Signup = () => {
   const [firstName, setfirstName] = useState("");
@@ -163,7 +166,7 @@ const Signup = () => {
             <div className="form-control mt-6">
               <button
                 className="btn btn-primary"
-                onClick={() => {
+                onClick={(e) => {
                   signUpData(e);
                 }}
               >
