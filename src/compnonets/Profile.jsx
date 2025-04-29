@@ -59,9 +59,9 @@ const Profile = () => {
   };
   return (
     user && (
-      <div className="flex flex-grow-0 items-center justify-center gap-7 min-h-screen">
+      <div className="flex flex-grow-0 items-center justify-center gap-7 min-h-screen flex-wrap">
         <Card user={{ firstName, lastName, age, about, photoUrl, gender }} />
-        <div className="bg-base-200  flex items-center justify-center w-96">
+        <div className="bg-base-200  flex items-center justify-center w-full lg:w-1/2">
           <div className="card lg:card-side bg-base-100 shadow-xl max-w-4xl w-full">
             <div className="card-body lg:w-1/2">
               <h2 className="card-title text-2xl font-bold mb-6">

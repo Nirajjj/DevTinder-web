@@ -8,7 +8,7 @@ import Card from "./Card";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
-
+  console.log(typeof feed, feed);
   const postFeed = async () => {
     if (feed) return;
     try {
@@ -18,9 +18,9 @@ const Feed = () => {
 
       dispatch(addFeed(res.data.feedCards));
     } catch (error) {
-      // if (error?.response?.status === 401) {
-      // }
-      Navigate("/login");
+      if (error?.response?.status === 401) {
+        Navigate("/login");
+      }
       console.error(error);
     }
   };

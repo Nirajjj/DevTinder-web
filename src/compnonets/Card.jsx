@@ -22,15 +22,19 @@ const Card = ({ user }) => {
   };
   if (!user) return <div>loading</div>;
   return (
-    <div className=" card-actions rounded-lg bg-base-300 w-3/12  shadow-xl">
+    <div className=" card-actions rounded-lg bg-baw-full text-sm xs:w-[90%] sm:w-[48%] md:w-[35%] lg:w-[25%] xl:w-[23%]">
       <figure>
-        <img src={photoUrl || DEFAULT_AVATAR} alt="user photo" />
+        <img
+          src={photoUrl || DEFAULT_AVATAR}
+          alt="user photo"
+          className=" rounded-lg w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         {age && gender && <p>{age + " " + gender}</p>}
         <p>{about}</p>
-        <div className="card-actions justify-center">
+        <div className="card-actions justify-center ">
           <button
             className="btn btn-info"
             onClick={() => {
