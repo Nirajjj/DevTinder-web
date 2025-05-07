@@ -36,8 +36,8 @@ const Request = () => {
   }, []);
   if (!requestsArray || requestsArray.length === 0) {
     return (
-      <div className="font-bold text-center mt-7 text-lg h-screen">
-        No Requests Yet
+      <div className="font-bold text-center mt-7 text-lg ">
+        No Request Yet
         <p onClick={() => navigate("/")} className="link">
           🔍 Explore developers to connect with →
         </p>

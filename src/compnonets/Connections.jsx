@@ -28,8 +28,8 @@ const Connections = () => {
   }, []);
   if (!connectionArray || connectionArray.length === 0) {
     return (
-      <div>
-        No connections
+      <div className="font-bold text-center mt-7 text-lg ">
+        No Connection Yet
         <p onClick={() => navigate("/")} className="link">
           🔍 Explore developers to connect with →
         </p>
