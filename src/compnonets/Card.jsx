@@ -1,4 +1,3 @@
-import React from "react";
 import { BASE_URL, DEFAULT_AVATAR } from "../utils/constants";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -22,34 +21,40 @@ const Card = ({ user }) => {
   };
   if (!user) return <div>loading</div>;
   return (
-    <div className=" card-actions rounded-lg bg-baw-full text-sm xs:w-[90%] sm:w-[48%] md:w-[35%] lg:w-[25%] xl:w-[23%]">
-      <figure>
+    <div className="bg-zinc-900 text-white shadow-lg hover:shadow-xl transition-shadow rounded-2xl overflow-hidden w-full xs:w-[90%] sm:w-[48%] md:w-[35%] lg:w-[25%] xl:w-[23%]">
+      <div className="overflow-hidden group h-60">
         <img
           src={photoUrl || DEFAULT_AVATAR}
-          alt="user photo"
-          className=" rounded-lg w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          alt={`${firstName}'s avatar`}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
-        {age && gender && <p>{age + " " + gender}</p>}
-        <p>{about}</p>
-        <div className="card-actions justify-center ">
+      </div>
+
+      <div className="p-4 flex flex-col gap-2">
+        <h2 className="text-lg font-semibold text-white">{`${firstName || ""} ${
+          lastName || ""
+        }`}</h2>
+        {age && gender && (
+          <p className="text-gray-400 text-sm">{`${age || ""} | ${
+            gender || ""
+          }`}</p>
+        )}
+        {about && (
+          <p className="text-gray-400 text-sm line-clamp-3">{about || ""}</p>
+        )}
+
+        <div className="flex justify-between mt-4 gap-2">
           <button
-            className="btn btn-info"
-            onClick={() => {
-              handleSendRequest("ignored", _id);
-            }}
+            className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-red-400 border border-red-400 hover:bg-red-500 hover:text-white transition-colors"
+            onClick={() => handleSendRequest("ignored", _id)}
           >
-            ignore
+            Ignore
           </button>
           <button
-            className="btn btn-success"
-            onClick={() => {
-              handleSendRequest("interested", _id);
-            }}
+            className="w-full px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-500 transition-colors"
+            onClick={() => handleSendRequest("interested", _id)}
           >
-            Interested
+            Connect
           </button>
         </div>
       </div>

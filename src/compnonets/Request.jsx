@@ -3,26 +3,30 @@ import React, { useEffect } from "react";
 import { BASE_URL, DEFAULT_AVATAR } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestSlice";
+import { useNavigate } from "react-router-dom";
 
 const Request = () => {
   const requestsArray = useSelector((store) => store.request);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const reviewRequest = async (status, id) => {
     try {
-      
-      const res = await axios.post(BASE_URL + "/request/review/" + status + "/" + id, {}, {withCredentials: true})
-      fetchRequest()
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + id,
+        {},
+        { withCredentials: true }
+      );
+      fetchRequest();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
   const fetchRequest = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
         withCredentials: true,
       });
       dispatch(addRequest(res.data.data));
-      
     } catch (error) {
       console.error(error);
     }
@@ -31,7 +35,14 @@ const Request = () => {
     fetchRequest();
   }, []);
   if (!requestsArray || requestsArray.length === 0) {
-    return <div className="font-bold text-center mt-7 text-lg h-screen">No request</div>;
+    return (
+      <div className="font-bold text-center mt-7 text-lg h-screen">
+        No Requests Yet
+        <p onClick={() => navigate("/")} className="link">
+          🔍 Explore developers to connect with →
+        </p>
+      </div>
+    );
   }
   return (
     <div className="h-screen">
@@ -57,8 +68,22 @@ const Request = () => {
               {age && gender && <p>{age + " " + gender}</p>}
             </div>
             <div className="card-actions justify-center">
-              <button className="btn btn-info" onClick={()=>{reviewRequest("rejected", request._id)}}>Reject</button>
-              <button className="btn btn-success" onClick={()=>{reviewRequest("accepted", request._id)}}>Accept</button>
+              <button
+                className="btn btn-info"
+                onClick={() => {
+                  reviewRequest("rejected", request._id);
+                }}
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-success"
+                onClick={() => {
+                  reviewRequest("accepted", request._id);
+                }}
+              >
+                Accept
+              </button>
             </div>
           </div>
         );

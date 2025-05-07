@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
-
-  // const {firstName, lastName, age, about, photoUrl, gender} = user.data
-
-  // if (!user) return;
+  const navigate = useNavigate();
   const [firstName, setfirstName] = useState(user?.firstName || "");
   const [lastName, setlastName] = useState(user?.lastName || "");
   const [age, setAge] = useState(user?.age || "");
@@ -50,6 +48,7 @@ const Profile = () => {
         setToast(false);
       }, 2000);
       dispatch(addUser(updatedUser.data.data));
+      navigate("/");
     } catch (error) {
       console.error(
         error.response?.data || error.message || "An error occurred"

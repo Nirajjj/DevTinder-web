@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../compnonets/Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../compnonets/Footer";
@@ -10,6 +10,7 @@ import { addUser } from "../utils/userSlice";
 const Body = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const LoginUser = useSelector((store) => store.user);
   const getLoginUser = async () => {
     try {
@@ -22,6 +23,8 @@ const Body = () => {
       // }
       navigate("/login");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,12 +33,27 @@ const Body = () => {
       getLoginUser();
     }
   }, []);
+
+  if (loading) {
+    // Show loading indicator while checking authentication
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-600 text-lg">Checking authentication...</p>
+      </div>
+    );
+  }
   return (
-    <>
-      <Navbar />
-      <Outlet />
+    <div className="flex flex-col min-h-screen">
+      <header className="bg-white shadow-md">
+        <Navbar />
+      </header>
+
+      <main className="flex-grow container mx-auto p-4">
+        <Outlet />
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 };
 

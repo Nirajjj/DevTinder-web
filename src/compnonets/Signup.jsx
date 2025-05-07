@@ -32,7 +32,7 @@ const Signup = () => {
       );
       console.log(res);
 
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
       return navigate("/profile");
     } catch (error) {
       setError(error.response.data);
